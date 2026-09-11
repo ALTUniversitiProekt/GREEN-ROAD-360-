@@ -7,7 +7,7 @@
 <title>ROAD ECO CONTROL | Автомобиль жолын салу алаңы</title>
 
 <meta name="description"
-content="Автомобиль жолын салу алаңының экологиялық аспектілерін анықтау, әсерін бағалау, шаңды азайту және құрылыс қалдықтарын басқару жүйесі.">
+content="Автомобиль жолын салу алаңының экологиялық аспектілерін цифрлық анықтау, бағалау, шаңды бақылау және құрылыс қалдықтарын басқару жүйесі.">
 
 <style>
 /* =========================================================
@@ -964,7 +964,7 @@ body::after{
 }
 
 /* =========================================================
-   IMPACT ASSESSMENT
+   ӘСЕР ASSESSMENT
 ========================================================= */
 
 .impact-dashboard{
@@ -1933,6 +1933,682 @@ footer{
     }
 
 }
+
+/* =========================================================
+   V2 — ENGINEERING CONTROL ROOM UI
+========================================================= */
+
+.hero{
+    min-height:100svh;
+}
+
+.hero-content{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 390px;
+    gap:40px;
+    align-items:center;
+}
+
+.hero-copy{
+    max-width:820px;
+}
+
+.hero h1{
+    max-width:820px;
+    font-size:clamp(48px,6.8vw,96px);
+    line-height:.9;
+    letter-spacing:-5px;
+    text-transform:uppercase;
+}
+
+.hero h1 .accent{
+    color:var(--green);
+    text-shadow:0 0 60px rgba(114,243,154,.16);
+}
+
+.hero-kicker{
+    color:#aebbb2;
+    font-size:11px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+}
+
+.hero-subtitle{
+    max-width:680px;
+    margin-top:24px;
+}
+
+.hero-dashboard{
+    width:100%;
+    padding:18px;
+    border:1px solid rgba(114,243,154,.17);
+    border-radius:24px;
+    background:rgba(7,16,11,.66);
+    backdrop-filter:blur(18px);
+    box-shadow:0 24px 80px rgba(0,0,0,.32);
+}
+
+.dashboard-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:14px;
+}
+
+.dashboard-top small,
+.dashboard-label{
+    color:#718077;
+    font-size:9px;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+}
+
+.dashboard-live{
+    color:var(--green);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.2px;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.metric{
+    min-height:92px;
+    padding:13px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    background:rgba(255,255,255,.025);
+}
+
+.metric b{
+    display:block;
+    margin-top:8px;
+    font-size:20px;
+    letter-spacing:-1px;
+}
+
+.metric span{
+    display:block;
+    margin-top:4px;
+    color:#738077;
+    font-size:9px;
+}
+
+.metric.good b{color:var(--green)}
+.metric.warn b{color:var(--yellow)}
+.metric.high b{color:var(--orange)}
+
+.dashboard-index{
+    margin-top:9px;
+    padding:13px;
+    border-radius:15px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.018);
+}
+
+.index-head{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    color:#9aa79f;
+    font-size:9px;
+}
+
+.index-head strong{
+    color:var(--orange);
+}
+
+.index-track{
+    height:7px;
+    margin-top:9px;
+    border-radius:99px;
+    overflow:hidden;
+    background:#17231b;
+}
+
+.index-track span{
+    display:block;
+    width:82%;
+    height:100%;
+    background:linear-gradient(90deg,var(--green),var(--yellow),var(--orange));
+    border-radius:99px;
+    transition:.5s;
+}
+
+.hero-controls{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:11px;
+    color:#65726a;
+    font-size:8px;
+    letter-spacing:1.1px;
+    text-transform:uppercase;
+}
+
+.scene-hint{
+    position:absolute;
+    right:28px;
+    bottom:25px;
+    z-index:6;
+    padding:10px 13px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:rgba(7,16,11,.62);
+    backdrop-filter:blur(12px);
+    color:#89978e;
+    font-size:9px;
+    letter-spacing:.7px;
+}
+
+.scene-hint b{color:var(--green)}
+
+.site-card{
+    min-height:570px;
+}
+
+.site-card .site-header{
+    background:rgba(7,16,11,.35);
+    backdrop-filter:blur(10px);
+}
+
+.site-map{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 50% 42%,rgba(114,243,154,.08),transparent 38%),
+        linear-gradient(145deg,#09120d,#07100b);
+}
+
+.site-map::before{
+    content:"";
+    position:absolute;
+    inset:70px 10% 30px;
+    transform:perspective(700px) rotateX(55deg) rotateZ(-7deg);
+    transform-origin:center;
+    border:1px solid rgba(114,243,154,.12);
+    background:
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:40px 40px;
+}
+
+.map-road{
+    position:absolute;
+    left:30%;
+    top:-10%;
+    width:40%;
+    height:125%;
+    transform:rotate(-7deg);
+    background:linear-gradient(90deg,#151b18,#242b27,#151b18);
+    box-shadow:0 0 50px rgba(0,0,0,.5);
+    border-left:3px solid rgba(114,243,154,.3);
+    border-right:3px solid rgba(114,243,154,.3);
+}
+
+.map-road::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:0;
+    bottom:0;
+    width:3px;
+    transform:translateX(-50%);
+    background:repeating-linear-gradient(to bottom,#dbe4de 0 25px,transparent 25px 58px);
+    opacity:.42;
+}
+
+.map-layer{
+    position:absolute;
+    left:20%;
+    right:20%;
+    bottom:15%;
+    height:14%;
+    border-radius:10px;
+    background:linear-gradient(#6d5941,#4a3b2b);
+    opacity:.95;
+}
+
+.map-pile{
+    position:absolute;
+    width:70px;
+    height:38px;
+    border-radius:50% 50% 40% 40%;
+    background:radial-gradient(circle at 45% 25%,#806a4e,#403628 70%);
+    box-shadow:0 12px 25px rgba(0,0,0,.3);
+}
+
+.map-pile.p1{left:9%;bottom:24%}
+.map-pile.p2{right:10%;top:28%;transform:scale(.8)}
+.map-pile.p3{right:15%;bottom:13%;transform:scale(.6)}
+
+.map-fence{
+    position:absolute;
+    height:7px;
+    background:repeating-linear-gradient(90deg,#d18c37 0 24px,#60431f 24px 30px);
+    box-shadow:0 0 0 1px rgba(255,216,106,.12);
+}
+.map-fence.f1{left:7%;right:7%;top:18%}
+.map-fence.f2{left:7%;width:18%;bottom:20%;transform:rotate(-8deg)}
+
+.map-lamp{
+    position:absolute;
+    width:4px;
+    height:48px;
+    background:#76827a;
+}
+.map-lamp::after{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:18px;
+    left:-7px;
+    top:-5px;
+    border-radius:50%;
+    background:rgba(255,216,106,.9);
+    box-shadow:0 0 24px rgba(255,216,106,.55);
+}
+.map-lamp.l1{left:17%;top:27%}
+.map-lamp.l2{right:17%;top:46%}
+.map-lamp.l3{left:20%;bottom:16%}
+
+.map-machine{
+    position:absolute;
+    z-index:4;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    background:#b97829;
+    box-shadow:0 12px 24px rgba(0,0,0,.38);
+    color:#16100a;
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:.5px;
+    transition:.3s;
+}
+.map-machine::before,
+.map-machine::after{
+    content:"";
+    position:absolute;
+    bottom:-7px;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#0a0d0b;
+}
+.map-machine::before{left:7px}
+.map-machine::after{right:7px}
+.map-machine.excavator{left:16%;bottom:31%;width:78px;height:43px}
+.map-machine.truck{right:16%;top:36%;width:72px;height:38px;background:#6e8f83}
+.map-machine.roller{left:35%;top:23%;width:65px;height:36px;background:#c78d37}
+.map-machine.paver{right:24%;bottom:22%;width:86px;height:38px;background:#8b5f2b}
+
+.map-sensor{
+    position:absolute;
+    z-index:8;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 6px rgba(114,243,154,.08),0 0 25px var(--green);
+    cursor:pointer;
+}
+.map-sensor::after{
+    content:"";
+    position:absolute;
+    inset:-14px;
+    border:1px solid rgba(114,243,154,.2);
+    border-radius:50%;
+    animation:ring 2s infinite;
+}
+.map-sensor.s1{left:23%;top:39%}
+.map-sensor.s2{right:23%;top:59%}
+.map-sensor.s3{left:47%;bottom:18%}
+
+.map-vegetation{
+    position:absolute;
+    z-index:2;
+    width:28%;
+    height:22%;
+    border-radius:50%;
+    background:
+        radial-gradient(circle at 20% 40%,#2a713d 0 8%,transparent 9%),
+        radial-gradient(circle at 42% 55%,#1d5a32 0 10%,transparent 11%),
+        radial-gradient(circle at 65% 35%,#347f43 0 8%,transparent 9%),
+        radial-gradient(circle at 82% 58%,#235e35 0 11%,transparent 12%);
+    opacity:.75;
+}
+.map-vegetation.v1{left:2%;bottom:5%}
+.map-vegetation.v2{right:2%;bottom:7%}
+
+.map-info{
+    position:absolute;
+    left:20px;
+    bottom:18px;
+    z-index:10;
+    max-width:230px;
+    padding:12px 14px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:rgba(7,16,11,.75);
+    backdrop-filter:blur(12px);
+    font-size:9px;
+    line-height:1.6;
+    color:#7d8a82;
+}
+.map-info strong{color:#e6eee8;display:block;margin-bottom:3px;font-size:10px}
+
+.problem-item[data-aspect]{
+    position:relative;
+}
+.problem-item[data-aspect]::after{
+    content:"↗";
+    position:absolute;
+    right:20px;
+    top:20px;
+    color:#536159;
+    font-size:12px;
+    transition:.25s;
+}
+.problem-item.active[data-aspect]::after{
+    color:var(--green);
+    transform:rotate(45deg);
+}
+
+.environment-map{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:1.35fr .65fr;
+    gap:18px;
+}
+.map-panel{
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:25px;
+    background:#0a130e;
+}
+.map-panel h3{font-size:20px}
+.map-panel p{margin-top:7px;color:var(--muted);font-size:11px;line-height:1.6}
+.map-legend{
+    margin-top:18px;
+    display:grid;
+    gap:8px;
+}
+.legend-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 12px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:rgba(255,255,255,.02);
+    color:#93a098;
+    font-size:10px;
+}
+.legend-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 12px rgba(114,243,154,.4);
+}
+.map-selected{
+    margin-top:18px;
+    padding:18px;
+    border-radius:18px;
+    border:1px solid rgba(114,243,154,.13);
+    background:rgba(114,243,154,.035);
+}
+.map-selected small{color:#66736b;font-size:8px;letter-spacing:1px}
+.map-selected strong{display:block;margin-top:7px;font-size:21px}
+.map-selected span{display:block;margin-top:7px;color:#7c8981;font-size:10px;line-height:1.6}
+
+.impact-index{
+    margin-top:20px;
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:rgba(255,255,255,.02);
+}
+.impact-index-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#8d9a92;
+    font-size:10px;
+    letter-spacing:1px;
+}
+.impact-index-title strong{color:var(--orange)}
+.index-row{
+    margin-top:13px;
+}
+.index-row-top{
+    display:flex;
+    justify-content:space-between;
+    color:#8c9991;
+    font-size:9px;
+}
+.index-row-top b{color:#d9e2dc}
+.index-mini{
+    height:5px;
+    margin-top:6px;
+    background:#17231b;
+    border-radius:99px;
+    overflow:hidden;
+}
+.index-mini span{
+    display:block;height:100%;border-radius:99px;
+    background:var(--green);
+}
+.index-row:nth-child(4) .index-mini span{background:var(--orange)}
+.index-row:nth-child(5) .index-mini span{background:var(--yellow)}
+
+.engineering-decision{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+.decision-card{
+    padding:16px;
+    border:1px solid var(--border);
+    border-radius:17px;
+    background:rgba(255,255,255,.018);
+}
+.decision-card small{color:#66736b;font-size:8px;letter-spacing:1px}
+.decision-card strong{display:block;margin-top:7px;font-size:15px}
+.decision-card span{display:block;margin-top:6px;color:#7c8981;font-size:9px;line-height:1.5}
+
+.dust-lab{
+    margin-top:15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:11px 13px;
+    border-radius:13px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.02);
+    color:#7d8a82;
+    font-size:9px;
+}
+.dust-lab strong{color:var(--green)}
+.dust-actions{
+    grid-template-columns:repeat(4,1fr);
+}
+.dust-btn.active{
+    color:white;
+    border-color:rgba(114,243,154,.3);
+    background:rgba(114,243,154,.055);
+}
+.dust-btn.spray{color:var(--blue)}
+.dust-response.restored{
+    border-color:rgba(114,243,154,.35);
+    box-shadow:0 0 35px rgba(114,243,154,.06);
+}
+.response-badge{
+    display:inline-flex;
+    margin-top:18px;
+    padding:8px 11px;
+    border-radius:99px;
+    color:var(--green);
+    background:rgba(114,243,154,.07);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.waste-node{
+    cursor:pointer;
+}
+.waste-node.active{
+    transform:translateY(-8px);
+    border-color:rgba(114,243,154,.35);
+    background:rgba(114,243,154,.045);
+}
+.waste-materials{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:.7fr 1.3fr;
+    gap:18px;
+}
+.material-buttons{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+.material-btn{
+    padding:13px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.02);
+    color:#9aa69f;
+    font-size:10px;
+    text-align:left;
+    transition:.25s;
+}
+.material-btn.active,
+.material-btn:hover{
+    color:white;
+    border-color:rgba(114,243,154,.3);
+    background:rgba(114,243,154,.045);
+}
+.material-detail{
+    padding:20px;
+    border-radius:22px;
+    border:1px solid var(--border);
+    background:#0a130e;
+}
+.material-detail small{color:#68766e;font-size:8px;letter-spacing:1px}
+.material-detail h3{margin-top:8px;font-size:22px}
+.material-detail p{margin-top:8px;color:#7d8981;font-size:11px;line-height:1.7}
+.material-tags{margin-top:15px;display:flex;flex-wrap:wrap;gap:7px}
+.material-tags span{
+    padding:7px 9px;
+    border:1px solid var(--border);
+    border-radius:99px;
+    color:#9aa69f;
+    font-size:8px;
+}
+
+.solution-grid{
+    margin-top:28px;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+}
+.solution-step{
+    display:grid;
+    grid-template-columns:70px 1fr auto;
+    gap:18px;
+    align-items:center;
+    padding:17px 18px;
+    border:1px solid var(--border);
+    border-radius:17px;
+    background:rgba(255,255,255,.018);
+}
+.solution-step b{color:var(--green);font-size:12px}
+.solution-step strong{font-size:13px}
+.solution-step span{color:#758178;font-size:10px;text-align:right}
+
+.final-flow{
+    margin:40px auto 0;
+    max-width:900px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+.final-flow div{
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    color:#a7b2aa;
+    font-size:10px;
+    background:rgba(255,255,255,.02);
+}
+.final-flow b{display:block;color:var(--green);font-size:8px;letter-spacing:1px;margin-bottom:7px}
+
+@media(max-width:1050px){
+    .hero-content{grid-template-columns:1fr}
+    .hero-dashboard{max-width:620px}
+    .environment-map,.waste-materials{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+    .hero-content{padding-top:105px}
+    .hero h1{font-size:56px;letter-spacing:-3px}
+    .dashboard-grid{grid-template-columns:1fr}
+    .scene-hint{right:12px;bottom:12px}
+    .engineering-decision,.final-flow{grid-template-columns:1fr}
+    .dust-actions{grid-template-columns:1fr 1fr}
+    .solution-step{grid-template-columns:45px 1fr}
+    .solution-step span{text-align:left;grid-column:2}
+}
+
+
+.aspect-orbit{
+    position:absolute;
+    z-index:9;
+    width:116px;
+    min-height:42px;
+    padding:9px 10px;
+    border:1px solid rgba(114,243,154,.18);
+    border-radius:12px;
+    background:rgba(7,16,11,.78);
+    color:#9aa79f;
+    backdrop-filter:blur(10px);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:.6px;
+    text-align:left;
+    transition:.3s;
+}
+.aspect-orbit::before{
+    content:"";
+    display:inline-block;
+    width:6px;height:6px;
+    margin-right:6px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 12px var(--green);
+}
+.aspect-orbit:hover,
+.aspect-orbit.active{
+    color:white;
+    border-color:rgba(114,243,154,.42);
+    background:rgba(114,243,154,.08);
+    transform:scale(1.04);
+}
+.aspect-orbit.a1{left:5%;top:28%}
+.aspect-orbit.a2{right:4%;top:23%}
+.aspect-orbit.a3{right:3%;top:64%}
+.aspect-orbit.a4{left:6%;bottom:20%}
+.aspect-orbit.a5{left:42%;top:12%}
+
 </style>
 </head>
 
@@ -2006,110 +2682,99 @@ footer{
 
     <canvas id="scene"></canvas>
 
-
     <div class="hero-content">
 
-        <div class="hero-label">
-
-            <span class="dot"></span>
-
-            АВТОМОБИЛЬ ЖОЛЫН САЛУ АЛАҢЫ
-
-        </div>
-
-
-        <h1>
-
-            ROAD<br>
-
-            <span>ECO</span><br>
-
-            CONTROL
-
-        </h1>
-
-
-        <p class="hero-subtitle">
-
-            Автомобиль жолын салу кезінде пайда болатын
-            негізгі экологиялық аспектілерді анықтау,
-            олардың қоршаған ортаға әсерін бағалау,
-            шаң-тозаңды азайту және құрылыс қалдықтарын
-            тиімді басқару жүйесі.
-
-        </p>
-
-
-        <div class="hero-buttons">
-
-            <a
-                href="#problem"
-                class="btn btn-primary">
-
-                Экологиялық талдауды бастау →
-
-            </a>
-
-
-            <a
-                href="#dust"
-                class="btn btn-secondary">
-
-                Шаң бақылауын көру
-
-            </a>
-
-        </div>
-
-
-        <div class="hero-info">
-
-            <div class="hero-info-item">
-
-                <strong>
-                    05
-                </strong>
-
-                <span>
-                    Негізгі экологиялық аспект
-                </span>
-
+        <div class="hero-copy">
+            <div class="hero-label">
+                <span class="dot"></span>
+                ECO CONTROL · 3D
             </div>
 
-
-            <div class="hero-info-item">
-
-                <strong>
-                    04
-                </strong>
-
-                <span>
-                    Негізгі міндет
-                </span>
-
+            <div class="hero-kicker">
+                CONSTRUCTION SITE / ECO MONITORING SYSTEM
             </div>
 
+            <h1>
+                АВТОМОБИЛЬ<br>
+                ЖОЛЫН САЛУ<br>
+                <span class="accent">АЛАҢЫ</span>
+            </h1>
 
-            <div class="hero-info-item">
+            <p class="hero-subtitle">
+                Құрылыс жұмыстарының қоршаған ортаға әсерін
+                цифрлық талдау, бағалау және басқару жүйесі.
+                Нақты уақыттағы сенсорлар, 3D алаң және
+                инженерлік шешімдер бір интерфейсте.
+            </p>
 
-                <strong>
-                    01
-                </strong>
-
-                <span>
-                    Біртұтас жүйе
-                </span>
-
+            <div class="hero-buttons">
+                <a href="#problem" class="btn btn-primary">
+                    Экологиялық талдауды бастау →
+                </a>
+                <a href="#dust" class="btn btn-secondary">
+                    Шаңды бақылау
+                </a>
             </div>
 
+            <div class="hero-info">
+                <div class="hero-info-item">
+                    <strong>05</strong>
+                    <span>Негізгі экологиялық аспект</span>
+                </div>
+                <div class="hero-info-item">
+                    <strong>04</strong>
+                    <span>Негізгі міндет</span>
+                </div>
+                <div class="hero-info-item">
+                    <strong>3D</strong>
+                    <span>Интерактивті алаң</span>
+                </div>
+            </div>
         </div>
 
+        <aside class="hero-dashboard">
+            <div class="dashboard-top">
+                <small>ҚОРШАҒАН ОРТА БАҚЫЛАУДА</small>
+                <span class="dashboard-live">● НАҚТЫ УАҚЫТ</span>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="metric good">
+                    <span>АУА САПАСЫ</span>
+                    <b>ҚАЛЫПТЫ</b>
+                </div>
+                <div class="metric warn">
+                    <span>ШАҢ ДЕҢГЕЙІ</span>
+                    <b id="heroDustValue">24</b>
+                    <span>мкг/м³</span>
+                </div>
+                <div class="metric good">
+                    <span>ШУ ДЕҢГЕЙІ</span>
+                    <b>58</b>
+                    <span>дБ</span>
+                </div>
+            </div>
+
+            <div class="dashboard-index">
+                <div class="index-head">
+                    <span>ЭКОЛОГИЯЛЫҚ ӘСЕР ИНДЕКСІ</span>
+                    <strong id="heroImpactState">ЖОҒАРЫ</strong>
+                </div>
+                <div class="index-track"><span id="heroImpactBar"></span></div>
+            </div>
+
+            <div class="hero-controls">
+                <span>Тышқанмен бұру</span>
+                <span>Нысанды басу → талдау</span>
+            </div>
+        </aside>
     </div>
 
-
-    <div class="hero-scroll">
-        SCROLL TO INSPECT
+    <div class="scene-hint">
+        <b>3D</b> · тышқанмен айналдырыңыз · нысанды таңдаңыз
     </div>
+
+    <div class="hero-scroll">ТӨМЕН ЖЫЛЖЫП · ТАЛДАУ</div>
 
 </section>
 
@@ -2158,68 +2823,50 @@ footer{
 
             <div class="site-card reveal">
 
-                <div class="site-header">
+    <div class="site-header">
+        <span>ҚҰРЫЛЫС АЛАҢЫ / 3D КӨРІНІС</span>
+        <b>● БЕЛСЕНДІ</b>
+    </div>
 
-                    <span>
-                        CONSTRUCTION SITE / 3D SIMULATION
-                    </span>
+    <div class="site-map">
+        <div class="map-road"></div>
+        <div class="map-layer"></div>
 
-                    <b>
-                        ● ACTIVE
-                    </b>
+        <div class="map-pile p1"></div>
+        <div class="map-pile p2"></div>
+        <div class="map-pile p3"></div>
 
-                </div>
+        <div class="map-fence f1"></div>
+        <div class="map-fence f2"></div>
 
+        <div class="map-lamp l1"></div>
+        <div class="map-lamp l2"></div>
+        <div class="map-lamp l3"></div>
 
-                <div class="site-road">
+        <div class="map-vegetation v1"></div>
+        <div class="map-vegetation v2"></div>
 
-                    <div class="road-edge left"></div>
-                    <div class="road-edge right"></div>
+        <button class="aspect-orbit a1" data-orbit="soil" onclick="selectMapObject('soil')">ТОПЫРАҚ ЖАМЫЛҒЫСЫ</button>
+        <button class="aspect-orbit a2" data-orbit="emission" onclick="selectMapObject('emission')">ТЕХНИКА ШЫҒАРЫНДЫЛАРЫ</button>
+        <button class="aspect-orbit a3" data-orbit="dust" onclick="selectMapObject('dust')">ШАҢ-ТOЗАҢ</button>
+        <button class="aspect-orbit a4" data-orbit="waste" onclick="selectMapObject('waste')">ҚҰРЫЛЫС ҚАЛДЫҚТАРЫ</button>
+        <button class="aspect-orbit a5" data-orbit="noise" onclick="selectMapObject('noise')">ШУ ЖӘНЕ ДІРІЛ</button>
 
-                </div>
+        <button class="map-machine excavator" data-map-aspect="soil" onclick="selectMapObject('soil')">ЭКСКАВАТОР</button>
+        <button class="map-machine truck" data-map-aspect="emission" onclick="selectMapObject('emission')">САМОСВАЛ</button>
+        <button class="map-machine roller" data-map-aspect="noise" onclick="selectMapObject('noise')">КАТОК</button>
+        <button class="map-machine paver" data-map-aspect="dust" onclick="selectMapObject('dust')">ТӨСЕГІШ</button>
 
+        <button class="map-sensor s1" aria-label="Сенсор 01" onclick="selectMapObject('dust')"></button>
+        <button class="map-sensor s2" aria-label="Сенсор 02" onclick="selectMapObject('emission')"></button>
+        <button class="map-sensor s3" aria-label="Сенсор 03" onclick="selectMapObject('soil')"></button>
 
-                <!-- MACHINES -->
-
-                <div class="machine one"></div>
-
-                <div class="machine two"></div>
-
-                <div class="machine three"></div>
-
-
-                <!-- DUST -->
-
-                <div class="dust-cloud one"></div>
-
-                <div class="dust-cloud two"></div>
-
-
-                <!-- SENSORS -->
-
-                <div class="sensor s1"></div>
-
-                <div class="sensor s2"></div>
-
-                <div class="sensor s3"></div>
-
-
-                <!-- LABELS -->
-
-                <div class="scene-label l1">
-                    ШАҢ / DUST
-                </div>
-
-                <div class="scene-label l2">
-                    СЕНСОР / SENSOR
-                </div>
-
-                <div class="scene-label l3">
-                    ҚҰРЫЛЫС ТЕХНИКАСЫ
-                </div>
-
-            </div>
-
+        <div class="map-info">
+            <strong id="mapObjectTitle">ЭКСКАВАТОР · ТОПЫРАҚ</strong>
+            <span id="mapObjectText">Топырақ жамылғысын қорғау аймағы. Нысанды таңдағанда талдау өзгереді.</span>
+        </div>
+    </div>
+</div>
 
             <!-- PROBLEMS -->
 
@@ -2228,6 +2875,7 @@ footer{
 
                 <div
                     class="problem-item active"
+                    data-aspect="soil"
                     onclick="toggleProblem(this)">
 
                     <div class="problem-top">
@@ -2265,6 +2913,7 @@ footer{
 
                 <div
                     class="problem-item"
+                    data-aspect="emission"
                     onclick="toggleProblem(this)">
 
                     <div class="problem-top">
@@ -2302,6 +2951,7 @@ footer{
 
                 <div
                     class="problem-item"
+                    data-aspect="dust"
                     onclick="toggleProblem(this)">
 
                     <div class="problem-top">
@@ -2338,6 +2988,7 @@ footer{
 
                 <div
                     class="problem-item"
+                    data-aspect="waste"
                     onclick="toggleProblem(this)">
 
                     <div class="problem-top">
@@ -2374,6 +3025,7 @@ footer{
 
                 <div
                     class="problem-item"
+                    data-aspect="noise"
                     onclick="toggleProblem(this)">
 
                     <div class="problem-top">
@@ -2415,6 +3067,30 @@ footer{
 
     </div>
 
+
+        <div class="environment-map reveal">
+
+            <div class="map-panel">
+                <h3>Құрылыс алаңы картасы</h3>
+                <p>Нысандарды таңдаңыз — сәйкес экологиялық аспект картада белгіленеді және талдау панелі жаңарады.</p>
+
+                <div class="map-legend">
+                    <div class="legend-item"><i class="legend-dot"></i> Сенсор / бақылау нүктесі</div>
+                    <div class="legend-item"><i class="legend-dot"></i> Құрылыс техникасы</div>
+                    <div class="legend-item"><i class="legend-dot"></i> Экологиялық тәуекел аймағы</div>
+                </div>
+            </div>
+
+            <div class="map-panel">
+                <div class="dashboard-label">ТАҢДАЛҒАН НЫСАН</div>
+                <div class="map-selected">
+                    <small id="selectedMapAspect">ТОПЫРАҚ</small>
+                    <strong id="selectedMapTitle">ЭКСКАВАТОР</strong>
+                    <span id="selectedMapAdvice">Топырақ қабатын сақтау, жұмыс аймағын шектеу және кейін қалпына келтіру шараларын жоспарлау.</span>
+                </div>
+            </div>
+
+        </div>
 </section>
 
 
@@ -2429,7 +3105,7 @@ footer{
         <div class="reveal">
 
             <div class="section-number">
-                02 / IMPACT ASSESSMENT
+                02 / ҚОРШАҒАН ОРТАҒА ӘСЕРІН БАҒАЛАУ
             </div>
 
 
@@ -2461,9 +3137,7 @@ footer{
 
             <div class="impact-control reveal">
 
-                <h3>
-                    Impact Scanner
-                </h3>
+                <h3>Әсерді бағалау сканері</h3>
 
                 <p>
 
@@ -2477,7 +3151,7 @@ footer{
 
                     <button
                         class="impact-button selected"
-                        onclick="selectImpact('soil',this)">
+                        onclick="selectImpact('soil',this)" data-impact="soil">
 
                         01 — Топырақ
 
@@ -2486,7 +3160,7 @@ footer{
 
                     <button
                         class="impact-button"
-                        onclick="selectImpact('emission',this)">
+                        onclick="selectImpact('emission',this)" data-impact="emission">
 
                         02 — Шығарындылар
 
@@ -2495,7 +3169,7 @@ footer{
 
                     <button
                         class="impact-button"
-                        onclick="selectImpact('dust',this)">
+                        onclick="selectImpact('dust',this)" data-impact="dust">
 
                         03 — Шаң-тозаң
 
@@ -2504,7 +3178,7 @@ footer{
 
                     <button
                         class="impact-button"
-                        onclick="selectImpact('waste',this)">
+                        onclick="selectImpact('waste',this)" data-impact="waste">
 
                         04 — Қалдық
 
@@ -2513,7 +3187,7 @@ footer{
 
                     <button
                         class="impact-button"
-                        onclick="selectImpact('noise',this)">
+                        onclick="selectImpact('noise',this)" data-impact="noise">
 
                         05 — Шу және діріл
 
@@ -2561,7 +3235,7 @@ footer{
                     <div class="analysis-card">
 
                         <small>
-                            FACTOR
+                            ФАКТОР
                         </small>
 
                         <strong id="factorName">
@@ -2595,7 +3269,7 @@ footer{
                     <div class="analysis-card">
 
                         <small>
-                            AFFECTED AREA
+                            ӘСЕР ЕТЕТІН ОРТА
                         </small>
 
                         <strong id="affectedArea">
@@ -2612,11 +3286,11 @@ footer{
                     <div class="analysis-card">
 
                         <small>
-                            PRIORITY
+                            БАСЫМДЫҚ
                         </small>
 
                         <strong id="priority">
-                            HIGH
+                            ЖОҒАРЫ
                         </strong>
 
                         <span>
@@ -2638,6 +3312,52 @@ footer{
                     құрылыс аяқталғаннан кейін жерді қалпына
                     келтіру шараларын қарастыру қажет.
 
+
+            <div class="impact-index">
+                <div class="impact-index-title">
+                    <span>ENVIRONMENTAL IMPACT INDEX</span>
+                    <strong id="impactIndexState">ЖОҒАРЫ</strong>
+                </div>
+
+                <div class="index-row">
+                    <div class="index-row-top"><span>Топырақ</span><b>ЖОҒАРЫ</b></div>
+                    <div class="index-mini"><span style="width:78%"></span></div>
+                </div>
+                <div class="index-row">
+                    <div class="index-row-top"><span>Ауа</span><b>ЖОҒАРЫ</b></div>
+                    <div class="index-mini"><span style="width:69%"></span></div>
+                </div>
+                <div class="index-row">
+                    <div class="index-row-top"><span>Шаң</span><b>ӨТЕ ЖОҒАРЫ</b></div>
+                    <div class="index-mini"><span style="width:86%"></span></div>
+                </div>
+                <div class="index-row">
+                    <div class="index-row-top"><span>Қалдық</span><b>ЖОҒАРЫ</b></div>
+                    <div class="index-mini"><span style="width:74%"></span></div>
+                </div>
+                <div class="index-row">
+                    <div class="index-row-top"><span>Шу / діріл</span><b>ОРТАША</b></div>
+                    <div class="index-mini"><span style="width:58%"></span></div>
+                </div>
+
+                <div class="engineering-decision">
+                    <div class="decision-card">
+                        <small>НЕГІЗГІ ТӘУЕКЕЛ</small>
+                        <strong id="decisionRisk">Шаң-тозаң</strong>
+                        <span>Әсер деңгейі өте жоғары.</span>
+                    </div>
+                    <div class="decision-card">
+                        <small>БАСЫМ ШАРА</small>
+                        <strong id="decisionAction">Су бүрку</strong>
+                        <span>Шаң көзін тікелей азайту.</span>
+                    </div>
+                    <div class="decision-card">
+                        <small>БАҚЫЛАУ</small>
+                        <strong id="decisionControl">Қайта өлшеу</strong>
+                        <span>Шарадан кейін нәтижені тексеру.</span>
+                    </div>
+                </div>
+            </div>
                 </div>
 
             </div>
@@ -2660,7 +3380,7 @@ footer{
         <div class="reveal">
 
             <div class="section-number">
-                03 / DUST CONTROL
+                03 / ШАҢДЫ АЗАЙТУ ШАРАЛАРЫ
             </div>
 
 
@@ -2759,14 +3479,19 @@ footer{
 
                 </div>
 
+                <div class="dust-lab">
+                    <span>СЕНСОР КҮЙІ</span>
+                    <strong id="dustSensorState">ҚАЛЫПТЫ</strong>
+                </div>
+
 
                 <div class="dust-actions">
 
                     <button
-                        class="dust-btn"
+                        class="dust-btn active"
                         onclick="setDust(24)">
 
-                        NORMAL
+                        ҚАЛЫПТЫ
 
                     </button>
 
@@ -2775,7 +3500,7 @@ footer{
                         class="dust-btn"
                         onclick="setDust(86)">
 
-                        HIGH DUST
+                        ШАҢ ЖОҒАРЫ
 
                     </button>
 
@@ -2784,7 +3509,16 @@ footer{
                         class="dust-btn"
                         onclick="setDust(145)">
 
-                        CRITICAL
+                        КРИТИКАЛЫҚ
+
+                    </button>
+
+
+                    <button
+                        class="dust-btn spray"
+                        onclick="waterSpray()">
+
+                        💧 СУ БҮРКУ
 
                     </button>
 
@@ -2799,7 +3533,7 @@ footer{
 
                 <div class="response-title">
 
-                    SMART RESPONSE
+                    ЖЕДЕЛ БАСҚАРУ ЖАУАБЫ
 
                 </div>
 
@@ -2822,6 +3556,8 @@ footer{
                     бақылау режимінде.
 
                 </div>
+
+                <div id="responseBadge" class="response-badge">БАҚЫЛАУ ЖҮЙЕСІ БЕЛСЕНДІ</div>
 
 
                 <div class="response-steps">
@@ -2901,7 +3637,7 @@ footer{
         <div class="reveal">
 
             <div class="section-number">
-                04 / CONSTRUCTION WASTE
+                04 / ҚҰРЫЛЫС ҚАЛДЫҚТАРЫН БАСҚАРУ
             </div>
 
 
@@ -3151,6 +3887,26 @@ footer{
 
             </div>
 
+
+        <div class="waste-materials reveal">
+            <div class="material-buttons">
+                <button class="material-btn active" onclick="selectWasteMaterial('asphalt',this)">Асфальт</button>
+                <button class="material-btn" onclick="selectWasteMaterial('concrete',this)">Бетон</button>
+                <button class="material-btn" onclick="selectWasteMaterial('soil',this)">Топырақ</button>
+                <button class="material-btn" onclick="selectWasteMaterial('metal',this)">Металл</button>
+            </div>
+
+            <div class="material-detail">
+                <small>МАТЕРИАЛДЫҚ АНАЛИЗ</small>
+                <h3 id="materialTitle">Асфальт</h3>
+                <p id="materialText">Ескі асфальтты бөлек жинап, ұсақтап, қайта жол-құрылыс жұмыстарына материал ретінде пайдалануға болады.</p>
+                <div class="material-tags" id="materialTags">
+                    <span>бөлек жинау</span>
+                    <span>қайта пайдалану</span>
+                    <span>қайта өңдеу</span>
+                </div>
+            </div>
+        </div>
         </div>
 
     </div>
@@ -3167,120 +3923,44 @@ footer{
     <div class="container">
 
         <div class="reveal">
-
-            <div class="section-number">
-                05 / ENGINEERING SOLUTION
-            </div>
-
+            <div class="section-number">05 / ИНЖЕНЕРЛІК ШЕШІМ</div>
 
             <h2 class="section-title">
-
-                Тапсырманың
-                <span>
-                    төрт негізгі шешімі.
-                </span>
-
+                Нақты басқару:
+                <span>анықтау → бағалау → азайту → басқару.</span>
             </h2>
 
-
             <p class="section-description">
-
-                Экологиялық мәселені тек анықтау жеткіліксіз.
-                Әр аспект бойынша нақты басқару бағыты
-                ұсынылуы керек.
-
+                Экологиялық әсерді тек көрсету емес, оны инженерлік
+                шешімге айналдыру: мәселені анықтау, тәуекелді бағалау,
+                бақылау шарасын енгізу және нәтижені қайта тексеру.
             </p>
-
         </div>
 
+        <div class="solution-grid">
 
-        <div class="objectives">
-
-
-            <div class="objective reveal">
-
-                <div class="objective-number">
-                    01
-                </div>
-
-                <h3>
-                    Экологиялық аспектілерді анықтау
-                </h3>
-
-                <p>
-
-                    Топырақ жамылғысы,
-                    техника шығарындылары,
-                    шаң-тозаң, құрылыс қалдықтары,
-                    шу мен діріл.
-
-                </p>
-
+            <div class="solution-step reveal">
+                <b>01</b>
+                <strong>Негізгі экологиялық аспектілерді анықтау</strong>
+                <span>Топырақ · шығарындылар · шаң · қалдық · шу/діріл</span>
             </div>
 
-
-            <div class="objective reveal">
-
-                <div class="objective-number">
-                    02
-                </div>
-
-                <h3>
-                    Қоршаған ортаға әсерін бағалау
-                </h3>
-
-                <p>
-
-                    Әр фактордың қоршаған ортаға
-                    әсер ету деңгейін анықтап,
-                    жоғары басымдықтағы мәселелерді
-                    бірінші басқару.
-
-                </p>
-
+            <div class="solution-step reveal">
+                <b>02</b>
+                <strong>Қоршаған ортаға әсерін бағалау</strong>
+                <span>Деңгей · басымдық · әсер ету ортасы</span>
             </div>
 
-
-            <div class="objective reveal">
-
-                <div class="objective-number">
-                    03
-                </div>
-
-                <h3>
-                    Шаңды азайту шаралары
-                </h3>
-
-                <p>
-
-                    Су бүрку, шаң деңгейін бақылау,
-                    құрылыс техникасының қозғалысын
-                    ұйымдастыру және қайта өлшеу.
-
-                </p>
-
+            <div class="solution-step reveal">
+                <b>03</b>
+                <strong>Шаңды азайту шаралары</strong>
+                <span>Су бүрку · қозғалысты бақылау · қайта өлшеу</span>
             </div>
 
-
-            <div class="objective reveal">
-
-                <div class="objective-number">
-                    04
-                </div>
-
-                <h3>
-                    Қалдықтарды басқару
-                </h3>
-
-                <p>
-
-                    Жинау → сұрыптау →
-                    қайта пайдалану →
-                    қайта өңдеу →
-                    кәдеге жарату.
-
-                </p>
-
+            <div class="solution-step reveal">
+                <b>04</b>
+                <strong>Құрылыс қалдықтарын басқару схемасы</strong>
+                <span>Жинау → сұрыптау → қайта пайдалану → қайта өңдеу → кәдеге жарату</span>
             </div>
 
         </div>
@@ -3298,53 +3978,32 @@ footer{
 
     <div class="final-content container">
 
-        <div class="section-number">
-            FINAL / ROAD × ENVIRONMENT
-        </div>
-
+        <div class="section-number">FINAL / ECO CONTROL</div>
 
         <h2>
-
-            ЖОЛ ҚҰРЫЛЫСЫ<br>
-
-            <span>
-                ТАБИҒАТПЕН
-            </span><br>
-
-            ҮЙЛЕСІМДЕ.
-
+            ҚҰРЫЛЫС<br>
+            <span>БАҚЫЛАУДА.</span>
         </h2>
 
-
         <p>
-
-            Біздің мақсатымыз — автомобиль жолының
-            құрылысын тоқтату емес. Құрылыс алаңындағы
-            экологиялық әсерді анықтап, бағалап және
-            басқару арқылы жол салу процесін қоршаған
-            ортаға жауапты ету.
-
+            Цифрлық мониторинг экологиялық аспектілерді анықтап,
+            әсерін бағалауға, шаң мен шығарындыларды азайтуға
+            және құрылыс қалдықтарын жүйелі басқаруға мүмкіндік береді.
         </p>
 
-
-        <div class="final-quote">
-
-            «Табиғатты жол құрылысына бейімдеу емес,
-            жол құрылысын табиғатпен үйлестіру.»
-
+        <div class="final-flow">
+            <div><b>01</b>АНЫҚТАУ</div>
+            <div><b>02</b>БАҒАЛАУ</div>
+            <div><b>03</b>АЗАЙТУ</div>
+            <div><b>04</b>БАСҚАРУ</div>
         </div>
 
+        <div class="final-quote">
+            MONITOR → ANALYZE → CONTROL → RESTORE
+        </div>
 
         <div style="margin-top:35px">
-
-            <a
-                href="#home"
-                class="btn btn-primary">
-
-                ↑ Жүйені қайта көру
-
-            </a>
-
+            <a href="#home" class="btn btn-primary">↑ Жүйені қайта көру</a>
         </div>
 
     </div>
@@ -3362,11 +4021,7 @@ footer{
 
         <div class="footer-brand">
 
-            ROAD
-            <span>
-                ECO
-            </span>
-            CONTROL
+            ROAD <span>ECO</span> CONTROL
 
         </div>
 
@@ -3393,1257 +4048,860 @@ footer{
 <script>
 
 /* =========================================================
-   THREE.JS 3D CONSTRUCTION SITE
+   THREE.JS — INTERACTIVE 3D CONSTRUCTION SITE
 ========================================================= */
 
-const threeScript =
-document.createElement("script");
+function loadScript(src){
+    return new Promise((resolve,reject)=>{
+        const s=document.createElement("script");
+        s.src=src;
+        s.onload=resolve;
+        s.onerror=reject;
+        document.head.appendChild(s);
+    });
+}
 
-threeScript.src =
-"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+let threeState = {
+    scene:null,
+    camera:null,
+    renderer:null,
+    controls:null,
+    raycaster:null,
+    mouse:null,
+    dust:null,
+    spray:null,
+    interactive:[],
+    selected:null,
+    clock:null
+};
 
-threeScript.onload = init3D;
+(async function boot3D(){
+    try{
+        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js");
+        await loadScript("https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js");
+        init3D();
+    }catch(error){
+        console.warn("3D модуль жүктелмеді:",error);
+    }
+})();
 
-document.head.appendChild(threeScript);
+function material(color, options={}){
+    return new THREE.MeshStandardMaterial({
+        color,
+        roughness:options.roughness ?? .72,
+        metalness:options.metalness ?? 0,
+        transparent:options.transparent ?? false,
+        opacity:options.opacity ?? 1
+    });
+}
 
+function addBox(parent, size, pos, color, opts={}){
+    const mesh=new THREE.Mesh(
+        new THREE.BoxGeometry(...size),
+        material(color,opts)
+    );
+    mesh.position.set(...pos);
+    parent.add(mesh);
+    return mesh;
+}
+
+function makeMachine(type,x,z,scale=1){
+    const group=new THREE.Group();
+    group.userData.aspect=type;
+    group.userData.name={
+        soil:"ЭКСКАВАТОР",
+        emission:"САМОСВАЛ",
+        noise:"ЖОЛ КАТОГЫ",
+        dust:"АСФАЛЬТ ТӨСЕГІШ",
+        waste:"ҚАЛДЫҚ АЙМАҒЫ"
+    }[type] || "ҚҰРЫЛЫС ТЕХНИКАСЫ";
+
+    if(type==="soil"){
+        addBox(group,[2.1,.65,2.6],[0,-.65,0],0xc78b31);
+        addBox(group,[1.25,.85,1.05],[0,.0,-.25],0x35433b,{metalness:.2});
+        const arm=addBox(group,[.35,.35,2.5],[1.05,.15,-.25],0xb97829);
+        arm.rotation.x=-.25;
+        const bucket=addBox(group,[.9,.65,.9],[1.45,-.35,-1.15],0x8c632b);
+        bucket.rotation.x=-.25;
+        addWheels(group,2.1,2.6);
+    }else if(type==="emission"){
+        addBox(group,[2.2,.75,3.0],[0,-.65,0],0x627f74);
+        addBox(group,[1.7,.65,1.4],[0,.05,-.45],0x37443e);
+        addBox(group,[2.0,.35,1.5],[0,-.05,.9],0x9b6b2e);
+        addWheels(group,2.3,2.9);
+        addExhaust(group,0,.45);
+    }else if(type==="noise"){
+        addBox(group,[2.0,.55,2.4],[0,-.75,0],0xc78b31);
+        const drum=new THREE.Mesh(
+            new THREE.CylinderGeometry(.65,.65,.85,20),
+            material(0x4e5650,{metalness:.35})
+        );
+        drum.rotation.z=Math.PI/2;
+        drum.position.set(0,-.3,.65);
+        group.add(drum);
+        addWheels(group,2.0,2.4);
+    }else{
+        addBox(group,[2.8,.55,2.2],[0,-.7,0],0xa86e2a);
+        addBox(group,[1.6,.65,1.2],[0,-.05,-.25],0x303b35);
+        addBox(group,[3.5,.18,.55],[0,-.45,1.15],0xd29b40);
+        addWheels(group,2.8,2.1);
+    }
+
+    group.position.set(x,0,z);
+    group.scale.setScalar(scale);
+    sceneAdd(group);
+    threeState.interactive.push(group);
+    return group;
+}
+
+function addWheels(group,width,depth){
+    for(const x of [-width/2+.15,width/2-.15]){
+        for(const z of [-depth/2+.2,depth/2-.2]){
+            const w=new THREE.Mesh(
+                new THREE.CylinderGeometry(.3,.3,.28,14),
+                material(0x080b09,{roughness:1})
+            );
+            w.rotation.z=Math.PI/2;
+            w.position.set(x,-1.05,z);
+            group.add(w);
+        }
+    }
+}
+
+function addExhaust(group,x,z){
+    const exhaust=new THREE.Group();
+    for(let i=0;i<7;i++){
+        const s=new THREE.Mesh(
+            new THREE.SphereGeometry(.08+Math.random()*.06,8,8),
+            new THREE.MeshBasicMaterial({
+                color:0x66716b,
+                transparent:true,
+                opacity:.28
+            })
+        );
+        s.position.set(x+(Math.random()-.5)*.15,.25+i*.18,z+(Math.random()-.5)*.12);
+        exhaust.add(s);
+    }
+    exhaust.userData.exhaust=true;
+    group.add(exhaust);
+}
+
+function sceneAdd(obj){ threeState.scene.add(obj); }
+
+function createPile(x,z,s=1){
+    const g=new THREE.Group();
+    g.userData.aspect="waste";
+    const base=new THREE.Mesh(
+        new THREE.SphereGeometry(1.1,16,10,0,Math.PI*2,0,Math.PI/2),
+        material(0x604d32)
+    );
+    base.scale.set(1.4,.55,1);
+    g.add(base);
+    g.position.set(x,-1.45,z);
+    g.scale.setScalar(s);
+    sceneAdd(g);
+    threeState.interactive.push(g);
+}
+
+function createTree(x,z,s=1){
+    const g=new THREE.Group();
+    const trunk=addBox(g,[.18,1.25,.18],[0,-.9,0],0x4b3523);
+    const crown=new THREE.Mesh(
+        new THREE.IcosahedronGeometry(.75,1),
+        material(0x216b39,{roughness:1})
+    );
+    crown.position.y=-.1;
+    g.add(crown);
+    g.position.set(x,0,z);
+    g.scale.setScalar(s);
+    sceneAdd(g);
+}
+
+function createFence(x,z,rot=0){
+    const g=new THREE.Group();
+    for(let i=-2;i<=2;i++){
+        addBox(g,[.1,1.05,.1],[i*1.15, -.95, 0],0x8c5c28);
+    }
+    addBox(g,[5.2,.12,.12],[0,-.65,0],0xd28c32);
+    addBox(g,[5.2,.12,.12],[0,-1.15,0],0x76502a);
+    g.position.set(x,0,z);
+    g.rotation.y=rot;
+    sceneAdd(g);
+}
+
+function createLamp(x,z){
+    const g=new THREE.Group();
+    addBox(g,[.07,2.2,.07],[0,-.45,0],0x6f7b74,{metalness:.65});
+    const bulb=new THREE.Mesh(
+        new THREE.SphereGeometry(.14,10,10),
+        new THREE.MeshBasicMaterial({color:0xffd86a})
+    );
+    bulb.position.y=.7;
+    g.add(bulb);
+    const light=new THREE.PointLight(0xffd86a,1.3,8);
+    light.position.y=.7;
+    g.add(light);
+    g.position.set(x,0,z);
+    sceneAdd(g);
+}
+
+function createSensor(x,z,aspect){
+    const g=new THREE.Group();
+    g.userData.aspect=aspect;
+    const pole=new THREE.Mesh(
+        new THREE.CylinderGeometry(.055,.07,2.2,8),
+        material(0x7d8982,{metalness:.7})
+    );
+    pole.position.y=-.35;
+    g.add(pole);
+
+    const top=new THREE.Mesh(
+        new THREE.SphereGeometry(.18,12,12),
+        new THREE.MeshBasicMaterial({color:0x72f39a})
+    );
+    top.position.y=.8;
+    g.add(top);
+
+    const ring=new THREE.Mesh(
+        new THREE.TorusGeometry(.38,.025,8,32),
+        new THREE.MeshBasicMaterial({color:0x72f39a,transparent:true,opacity:.55})
+    );
+    ring.rotation.x=Math.PI/2;
+    ring.position.y=.8;
+    g.add(ring);
+
+    g.position.set(x,0,z);
+    g.userData.sensor=true;
+    g.userData.top=top;
+    g.userData.ring=ring;
+    sceneAdd(g);
+    threeState.interactive.push(g);
+}
+
+function createRoadLayers(){
+    // Base earth
+    addBox(threeState.scene,[9,.5,65],[0,-1.35,0],0x463a2c);
+    // crushed stone
+    addBox(threeState.scene,[8.6,.38,65],[0,-1.03,0],0x71685c);
+    // asphalt
+    addBox(threeState.scene,[8.1,.22,65],[0,-.73,0],0x181d1c);
+
+    // road markings
+    for(let z=-30;z<32;z+=4){
+        addBox(threeState.scene,[.15,.025,1.7],[0,-.59,z],0xdde6df);
+    }
+    addBox(threeState.scene,[.07,.03,65],[-3.82,-.59,0],0x72f39a);
+    addBox(threeState.scene,[.07,.03,65],[3.82,-.59,0],0x72f39a);
+
+    // layer labels as small technical markers
+    const layerData=[
+        [-6,-.9,"ТОПЫРАҚ"],
+        [-6,-.45,"ЩЕБЕНЬ"],
+        [-6,-.18,"АСФАЛЬТ"]
+    ];
+    layerData.forEach(([x,y,label],i)=>{
+        const marker=addBox(threeState.scene,[1.5,.03,.4],[x,y,10+i*2],0x26372c);
+        marker.userData.label=label;
+    });
+}
 
 function init3D(){
+    const canvas=document.getElementById("scene");
+    if(!canvas) return;
 
-    const canvas =
-        document.getElementById("scene");
+    const scene=new THREE.Scene();
+    scene.fog=new THREE.FogExp2(0x07100b,.014);
 
-
-    const scene =
-        new THREE.Scene();
-
-
-    scene.fog =
-        new THREE.FogExp2(
-            0x07100b,
-            .018
-        );
-
-
-    const camera =
-        new THREE.PerspectiveCamera(
-            55,
-            window.innerWidth /
-            window.innerHeight,
-            .1,
-            1000
-        );
-
-
-    camera.position.set(
-        0,
-        5,
-        16
+    const camera=new THREE.PerspectiveCamera(
+        52,
+        window.innerWidth/window.innerHeight,
+        .1,
+        1000
     );
+    camera.position.set(13,7,17);
 
+    const renderer=new THREE.WebGLRenderer({
+        canvas,
+        antialias:true,
+        alpha:true
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    renderer.outputEncoding=THREE.sRGBEncoding;
 
-    const renderer =
-        new THREE.WebGLRenderer({
-            canvas:canvas,
-            antialias:true,
-            alpha:true
-        });
+    threeState.scene=scene;
+    threeState.camera=camera;
+    threeState.renderer=renderer;
+    threeState.clock=new THREE.Clock();
+    threeState.raycaster=new THREE.Raycaster();
+    threeState.mouse=new THREE.Vector2();
 
-
-    renderer.setPixelRatio(
-        Math.min(
-            window.devicePixelRatio,
-            2
-        )
-    );
-
-
-    renderer.setSize(
-        window.innerWidth,
-        window.innerHeight
-    );
-
-
-    /* LIGHT */
-
-    const ambient =
-        new THREE.AmbientLight(
-            0xffffff,
-            1.25
-        );
-
+    const ambient=new THREE.HemisphereLight(0xc8d7cd,0x07100b,1.55);
     scene.add(ambient);
 
+    const key=new THREE.DirectionalLight(0xffffff,1.7);
+    key.position.set(8,16,10);
+    scene.add(key);
 
-    const greenLight =
-        new THREE.PointLight(
-            0x72f39a,
-            35,
-            45
-        );
-
-    greenLight.position.set(
-        0,
-        7,
-        2
-    );
-
+    const greenLight=new THREE.PointLight(0x72f39a,32,35);
+    greenLight.position.set(0,5,2);
     scene.add(greenLight);
 
-
-    const orangeLight =
-        new THREE.PointLight(
-            0xffa34d,
-            12,
-            30
-        );
-
-    orangeLight.position.set(
-        7,
-        3,
-        -8
-    );
-
+    const orangeLight=new THREE.PointLight(0xffa34d,12,25);
+    orangeLight.position.set(8,3,-8);
     scene.add(orangeLight);
 
-
-    /* GROUND */
-
-    const ground =
-        new THREE.Mesh(
-            new THREE.PlaneGeometry(
-                80,
-                80
-            ),
-            new THREE.MeshStandardMaterial({
-                color:0x08110c,
-                roughness:1
-            })
-        );
-
-    ground.rotation.x =
-        -Math.PI/2;
-
-    ground.position.y =
-        -1.6;
-
+    const ground=new THREE.Mesh(
+        new THREE.PlaneGeometry(90,90),
+        material(0x08110c,{roughness:1})
+    );
+    ground.rotation.x=-Math.PI/2;
+    ground.position.y=-1.62;
     scene.add(ground);
 
-
-    /* GRID */
-
-    const grid =
-        new THREE.GridHelper(
-            70,
-            40,
-            0x173521,
-            0x0d1d13
-        );
-
-    grid.position.y =
-        -1.55;
-
-    grid.material.transparent =
-        true;
-
-    grid.material.opacity =
-        .45;
-
+    const grid=new THREE.GridHelper(80,40,0x173521,0x0d1d13);
+    grid.position.y=-1.6;
+    grid.material.transparent=true;
+    grid.material.opacity=.35;
     scene.add(grid);
 
+    createRoadLayers();
 
-    /* ROAD */
+    // Construction zone
+    createFence(-5.7,-18,0);
+    createFence(5.7,20,Math.PI);
 
-    const road =
-        new THREE.Mesh(
-            new THREE.PlaneGeometry(
-                8,
-                65
-            ),
-            new THREE.MeshStandardMaterial({
-                color:0x151a19,
-                roughness:.8
-            })
-        );
+    // Equipment
+    makeMachine("soil",-5.0,-9,1.15);
+    makeMachine("emission",4.9,0,.95);
+    makeMachine("noise",-5.2,10,.9);
+    makeMachine("dust",4.4,17,.85);
 
-    road.rotation.x =
-        -Math.PI/2;
+    // Piles / waste area
+    createPile(6.2,7,1.2);
+    createPile(7.0,11,.8);
+    createPile(-7,17,.9);
 
-    road.position.y =
-        -1.5;
-
-    scene.add(road);
-
-
-    /* ROAD EDGES */
-
-    function roadLine(x){
-
-        const line =
-            new THREE.Mesh(
-                new THREE.BoxGeometry(
-                    .08,
-                    .04,
-                    65
-                ),
-                new THREE.MeshBasicMaterial({
-                    color:0x72f39a
-                })
-            );
-
-        line.position.set(
-            x,
-            -1.44,
-            0
-        );
-
-        scene.add(line);
-
+    // Vegetation strip
+    for(let i=0;i<18;i++){
+        const side=i%2===0?-1:1;
+        createTree(side*(7.5+Math.random()*2),-28+i*3.5,.65+Math.random()*.35);
     }
 
-    roadLine(-3.8);
-    roadLine(3.8);
+    // Lamps
+    createLamp(-5.5,-14);
+    createLamp(5.5,6);
+    createLamp(-5.5,25);
 
+    // Sensors
+    createSensor(-5,-5,"dust");
+    createSensor(5,4,"emission");
+    createSensor(-5,14,"soil");
+    createSensor(5,22,"noise");
 
-    /* CENTER LINES */
-
-    for(
-        let z=-30;
-        z<35;
-        z+=4
-    ){
-
-        const marker =
-            new THREE.Mesh(
-                new THREE.BoxGeometry(
-                    .18,
-                    .04,
-                    1.8
-                ),
-                new THREE.MeshBasicMaterial({
-                    color:0xdde6df
-                })
-            );
-
-        marker.position.set(
-            0,
-            -1.42,
-            z
-        );
-
-        scene.add(marker);
-
+    // Dust particles
+    const count=900;
+    const positions=new Float32Array(count*3);
+    for(let i=0;i<count;i++){
+        positions[i*3]=(Math.random()-.5)*22;
+        positions[i*3+1]=-1+Math.random()*7;
+        positions[i*3+2]=(Math.random()-.5)*36;
     }
+    const pg=new THREE.BufferGeometry();
+    pg.setAttribute("position",new THREE.BufferAttribute(positions,3));
+    const pm=new THREE.PointsMaterial({
+        color:0xc6b28d,
+        size:.055,
+        transparent:true,
+        opacity:.18,
+        depthWrite:false
+    });
+    const dust=new THREE.Points(pg,pm);
+    scene.add(dust);
+    threeState.dust=dust;
 
-
-    /* CONSTRUCTION BARriers */
-
-    for(
-        let z=-22;
-        z<24;
-        z+=6
-    ){
-
-        [-5.5,5.5].forEach(
-            x=>{
-
-                const barrier =
-                    new THREE.Mesh(
-                        new THREE.BoxGeometry(
-                            .18,
-                            1.1,
-                            2
-                        ),
-                        new THREE.MeshStandardMaterial({
-                            color:0xb9772c
-                        })
-                    );
-
-                barrier.position.set(
-                    x,
-                    -.95,
-                    z
-                );
-
-                scene.add(barrier);
-
-            }
-        );
-
+    // Water spray effect
+    const sprayPos=new Float32Array(180*3);
+    for(let i=0;i<180;i++){
+        sprayPos[i*3]=3+(Math.random()-.5)*5;
+        sprayPos[i*3+1]=-.55+Math.random()*1.7;
+        sprayPos[i*3+2]=13+(Math.random()-.5)*5;
     }
-
-
-    /* SENSOR TOWERS */
-
-    const sensors=[];
-
-
-    function createSensor(x,z){
-
-        const group =
-            new THREE.Group();
-
-
-        const pole =
-            new THREE.Mesh(
-                new THREE.CylinderGeometry(
-                    .05,
-                    .07,
-                    2.4,
-                    8
-                ),
-                new THREE.MeshStandardMaterial({
-                    color:0x7d8982,
-                    metalness:.7
-                })
-            );
-
-        pole.position.y =
-            -.3;
-
-        group.add(pole);
-
-
-        const top =
-            new THREE.Mesh(
-                new THREE.SphereGeometry(
-                    .18,
-                    12,
-                    12
-                ),
-                new THREE.MeshBasicMaterial({
-                    color:0x72f39a
-                })
-            );
-
-        top.position.y =
-            .9;
-
-        group.add(top);
-
-
-        const ring =
-            new THREE.Mesh(
-                new THREE.TorusGeometry(
-                    .35,
-                    .025,
-                    8,
-                    32
-                ),
-                new THREE.MeshBasicMaterial({
-                    color:0x72f39a,
-                    transparent:true,
-                    opacity:.5
-                })
-            );
-
-        ring.rotation.x =
-            Math.PI/2;
-
-        ring.position.y =
-            .9;
-
-        group.add(ring);
-
-
-        group.position.set(
-            x,
-            0,
-            z
-        );
-
-
-        scene.add(group);
-
-        sensors.push({
-            group,
-            top,
-            ring
-        });
-
-    }
-
-
-    createSensor(-5,-10);
-
-    createSensor(5,-3);
-
-    createSensor(-5,7);
-
-    createSensor(5,15);
-
-
-    /* TREES */
-
-    function createTree(x,z){
-
-        const group =
-            new THREE.Group();
-
-
-        const trunk =
-            new THREE.Mesh(
-                new THREE.CylinderGeometry(
-                    .12,
-                    .15,
-                    1.5,
-                    8
-                ),
-                new THREE.MeshStandardMaterial({
-                    color:0x47311f
-                })
-            );
-
-        trunk.position.y =
-            -.8;
-
-        group.add(trunk);
-
-
-        const crown =
-            new THREE.Mesh(
-                new THREE.SphereGeometry(
-                    .7,
-                    12,
-                    12
-                ),
-                new THREE.MeshStandardMaterial({
-                    color:0x1b6736,
-                    roughness:1
-                })
-            );
-
-        crown.position.y =
-            .15;
-
-        group.add(crown);
-
-
-        group.position.set(
-            x,
-            0,
-            z
-        );
-
-        scene.add(group);
-
-    }
-
-
-    for(
-        let i=0;
-        i<14;
-        i++
-    ){
-
-        const side =
-            i%2===0
-            ? -1
-            : 1;
-
-        createTree(
-            side*(7+Math.random()*3),
-            -28+i*4
-        );
-
-    }
-
-
-    /* CONSTRUCTION MACHINE */
-
-    function createMachine(
-        x,
-        z,
-        scale=1
-    ){
-
-        const group =
-            new THREE.Group();
-
-
-        const body =
-            new THREE.Mesh(
-                new THREE.BoxGeometry(
-                    1.7,
-                    .7,
-                    2.7
-                ),
-                new THREE.MeshStandardMaterial({
-                    color:0xb87d2c,
-                    roughness:.75
-                })
-            );
-
-        body.position.y =
-            -.8;
-
-        group.add(body);
-
-
-        const cabin =
-            new THREE.Mesh(
-                new THREE.BoxGeometry(
-                    1.2,
-                    .8,
-                    1
-                ),
-                new THREE.MeshStandardMaterial({
-                    color:0x303b35,
-                    metalness:.3
-                })
-            );
-
-        cabin.position.set(
-            0,
-            -.25,
-            -.2
-        );
-
-        group.add(cabin);
-
-
-        for(
-            const zPos of [-.9,.9]
-        ){
-
-            const wheel =
-                new THREE.Mesh(
-                    new THREE.CylinderGeometry(
-                        .35,
-                        .35,
-                        .25,
-                        16
-                    ),
-                    new THREE.MeshStandardMaterial({
-                        color:0x080b09
-                    })
-                );
-
-            wheel.rotation.z =
-                Math.PI/2;
-
-            wheel.position.set(
-                .9,
-                -1.15,
-                zPos
-            );
-
-            group.add(wheel);
-
-
-            const wheel2 =
-                wheel.clone();
-
-            wheel2.position.x =
-                -.9;
-
-            group.add(wheel2);
-
-        }
-
-
-        group.position.set(
-            x,
-            0,
-            z
-        );
-
-        group.scale.setScalar(
-            scale
-        );
-
-        scene.add(group);
-
-    }
-
-
-    createMachine(
-        -6,
-        -7,
-        1.2
-    );
-
-
-    createMachine(
-        5,
-        4,
-        .85
-    );
-
-
-    createMachine(
-        -6,
-        17,
-        .75
-    );
-
-
-    /* PARTICLES / DUST */
-
-    const particleCount =
-        550;
-
-
-    const positions =
-        new Float32Array(
-            particleCount*3
-        );
-
-
-    for(
-        let i=0;
-        i<particleCount;
-        i++
-    ){
-
-        positions[i*3] =
-            (Math.random()-.5)*45;
-
-        positions[i*3+1] =
-            Math.random()*10-1;
-
-        positions[i*3+2] =
-            (Math.random()-.5)*45;
-
-    }
-
-
-    const particleGeometry =
-        new THREE.BufferGeometry();
-
-    particleGeometry.setAttribute(
-        "position",
-        new THREE.BufferAttribute(
-            positions,
-            3
-        )
-    );
-
-
-    const particleMaterial =
-        new THREE.PointsMaterial({
-            color:0x8bd89e,
-            size:.035,
-            transparent:true,
-            opacity:.35
-        });
-
-
-    const particles =
-        new THREE.Points(
-            particleGeometry,
-            particleMaterial
-        );
-
-    scene.add(particles);
-
-
-    /* MOUSE */
-
-    let mouseX=0;
-    let mouseY=0;
-
-
-    window.addEventListener(
-        "mousemove",
-        e=>{
-
-            mouseX =
-                (e.clientX /
-                window.innerWidth -
-                .5);
-
-            mouseY =
-                (e.clientY /
-                window.innerHeight -
-                .5);
-
-        }
-    );
-
-
-    /* ANIMATION */
-
-    const clock =
-        new THREE.Clock();
-
+    const sg=new THREE.BufferGeometry();
+    sg.setAttribute("position",new THREE.BufferAttribute(sprayPos,3));
+    const sm=new THREE.PointsMaterial({
+        color:0x65d9ff,
+        size:.035,
+        transparent:true,
+        opacity:0,
+        depthWrite:false
+    });
+    const spray=new THREE.Points(sg,sm);
+    scene.add(spray);
+    threeState.spray=spray;
+
+    const controls=new THREE.OrbitControls(camera,canvas);
+    controls.enableDamping=true;
+    controls.dampingFactor=.07;
+    controls.minDistance=8;
+    controls.maxDistance=30;
+    controls.maxPolarAngle=Math.PI*.47;
+    controls.target.set(0,-.5,0);
+    threeState.controls=controls;
+
+    canvas.addEventListener("click",onSceneClick);
 
     function animate(){
+        requestAnimationFrame(animate);
+        const t=threeState.clock.getElapsedTime();
 
-        requestAnimationFrame(
-            animate
-        );
+        controls.update();
 
+        dust.rotation.y=t*.006;
 
-        const time =
-            clock.getElapsedTime();
+        if(threeState.spray){
+            threeState.spray.rotation.y=t*.025;
+            threeState.spray.material.opacity=
+                Math.max(0,threeState.spray.material.opacity-.003);
+        }
 
-
-        camera.position.x +=
-            (
-                mouseX*2 -
-                camera.position.x
-            )*.025;
-
-
-        camera.position.y +=
-            (
-                5 -
-                mouseY*1.5 -
-                camera.position.y
-            )*.025;
-
-
-        camera.lookAt(
-            0,
-            -1,
-            -4
-        );
-
-
-        particles.rotation.y =
-            time*.01;
-
-
-        sensors.forEach(
-            (s,i)=>{
-
-                s.top.material.color
-                    .setHSL(
-                        .38,
-                        .8,
-                        .55+
-                        Math.sin(
-                            time*3+i
-                        )*.12
-                    );
-
-
-                s.ring.scale.setScalar(
-                    1+
-                    Math.sin(
-                        time*2+i
-                    )*.18
-                );
-
+        threeState.interactive.forEach((obj,i)=>{
+            if(obj.userData.sensor){
+                const top=obj.userData.top;
+                const ring=obj.userData.ring;
+                top.material.color.setHSL(.38,.8,.55+Math.sin(t*3+i)*.12);
+                ring.scale.setScalar(1+Math.sin(t*2+i)*.18);
             }
-        );
+        });
 
-
-        renderer.render(
-            scene,
-            camera
-        );
-
+        renderer.render(scene,camera);
     }
-
-
     animate();
 
-
-    window.addEventListener(
-        "resize",
-        ()=>{
-
-            camera.aspect =
-                window.innerWidth/
-                window.innerHeight;
-
-            camera.updateProjectionMatrix();
-
-            renderer.setSize(
-                window.innerWidth,
-                window.innerHeight
-            );
-
-        }
-    );
-
+    window.addEventListener("resize",()=>{
+        camera.aspect=window.innerWidth/window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth,window.innerHeight);
+    });
 }
 
+function onSceneClick(event){
+    const canvas=threeState.renderer.domElement;
+    const rect=canvas.getBoundingClientRect();
+    threeState.mouse.x=((event.clientX-rect.left)/rect.width)*2-1;
+    threeState.mouse.y=-((event.clientY-rect.top)/rect.height)*2+1;
+
+    threeState.raycaster.setFromCamera(threeState.mouse,threeState.camera);
+    const hits=threeState.raycaster.intersectObjects(threeState.interactive,true);
+    if(!hits.length) return;
+
+    let obj=hits[0].object;
+    while(obj && !obj.userData.aspect) obj=obj.parent;
+    if(obj && obj.userData.aspect){
+        selectMapObject(obj.userData.aspect);
+    }
+}
 
 /* =========================================================
-   PROBLEM ACCORDION
+   PROBLEM INTERACTION
 ========================================================= */
 
-function toggleProblem(element){
+const mapAspectData={
+    soil:{
+        title:"ЭКСКАВАТОР",
+        aspect:"ТОПЫРАҚ",
+        advice:"Топырақ қабатын сақтау, жұмыс аймағын шектеу және құрылыс аяқталғаннан кейін жерді қалпына келтіру."
+    },
+    emission:{
+        title:"САМОСВАЛ",
+        aspect:"ШЫҒАРЫНДЫЛАР",
+        advice:"Техниканың техникалық жағдайын бақылау, бос жүрісті азайту және отын тиімділігін арттыру."
+    },
+    dust:{
+        title:"АСФАЛЬТ ТӨСЕГІШ",
+        aspect:"ШАҢ-ТOЗАҢ",
+        advice:"Шаң көздерін бақылау, жол бетін сулау және қозғалыс бағытын ұйымдастыру."
+    },
+    waste:{
+        title:"ҚАЛДЫҚ АЙМАҒЫ",
+        aspect:"ҚАЛДЫҚТАР",
+        advice:"Асфальт, бетон, топырақ және металл қалдықтарын бөлек жинап, қайта пайдалану немесе өңдеуге бағыттау."
+    },
+    noise:{
+        title:"ЖОЛ КАТОГЫ",
+        aspect:"ШУ / ДІРІЛ",
+        advice:"Жұмыс уақытын ұйымдастыру, техниканың жағдайын бақылау және шу әсерін тұрақты өлшеу."
+    }
+};
 
-    document
-        .querySelectorAll(".problem-item")
-        .forEach(
-            item=>{
+function selectMapObject(type){
+    const data=mapAspectData[type]||mapAspectData.soil;
 
-                if(item!==element){
+    const ids=[
+        ["mapObjectTitle",data.title+" · "+data.aspect],
+        ["mapObjectText",data.advice],
+        ["selectedMapAspect",data.aspect],
+        ["selectedMapTitle",data.title],
+        ["selectedMapAdvice",data.advice]
+    ];
 
-                    item.classList.remove(
-                        "active"
-                    );
+    ids.forEach(([id,value])=>{
+        const el=document.getElementById(id);
+        if(el) el.textContent=value;
+    });
 
-                }
+    document.querySelectorAll(".problem-item").forEach(item=>{
+        item.classList.toggle("active",item.dataset.aspect===type);
+    });
 
-            }
-        );
+    document.querySelectorAll(".aspect-orbit").forEach(item=>{
+        item.classList.toggle("active",item.dataset.orbit===type);
+    });
 
+    highlight3D(type);
 
-    element.classList.toggle(
-        "active"
-    );
-
+    // Keep the assessment panel synchronized.
+    const button=document.querySelector(`.impact-button[data-impact="${type}"]`);
+    if(button) selectImpact(type,button);
 }
 
+function highlight3D(type){
+    if(!threeState.interactive) return;
+
+    threeState.interactive.forEach(obj=>{
+        const active=obj.userData.aspect===type;
+        obj.traverse(child=>{
+            if(!child.material) return;
+            if(child.material.emissive){
+                child.material.emissive.set(active?0x123d22:0x000000);
+                child.material.emissiveIntensity=active?1.4:0;
+            }
+        });
+        obj.scale.lerp(
+            new THREE.Vector3(
+                active ? (obj.userData.sensor?1.18:1.08) : 1,
+                active ? (obj.userData.sensor?1.18:1.08) : 1,
+                active ? (obj.userData.sensor?1.18:1.08) : 1
+            ),
+            .35
+        );
+    });
+}
+
+function toggleProblem(element){
+    document.querySelectorAll(".problem-item").forEach(item=>{
+        if(item!==element) item.classList.remove("active");
+    });
+
+    element.classList.toggle("active");
+
+    if(element.dataset.aspect){
+        selectMapObject(element.dataset.aspect);
+    }
+}
 
 /* =========================================================
    IMPACT DATA
 ========================================================= */
 
 const impactData={
-
     soil:{
         name:"Топырақ",
         percent:"78%",
         area:"Жер қабаты",
-        priority:"HIGH",
+        priority:"ЖОҒАРЫ",
         level:"ЖОҒАРЫ",
         width:"78%",
         color:"high",
-
-        text:
-        "Құрылыс алаңын дайындау кезінде топырақ жамылғысының бұзылуын азайту, сақталатын топырақ қабатын белгілеу және құрылыс аяқталғаннан кейін жерді қалпына келтіру шараларын қарастыру қажет."
+        text:"Құрылыс алаңын дайындау кезінде топырақ жамылғысының бұзылуын азайту, сақталатын топырақ қабатын белгілеу және құрылыс аяқталғаннан кейін жерді қалпына келтіру шараларын қарастыру қажет."
     },
-
     emission:{
         name:"Техника шығарындылары",
         percent:"69%",
         area:"Ауа сапасы",
-        priority:"HIGH",
+        priority:"ЖОҒАРЫ",
         level:"ЖОҒАРЫ",
         width:"69%",
         color:"high",
-
-        text:
-        "Құрылыс техникасының шығарындыларын азайту үшін техниканың техникалық жағдайын бақылау, қажетсіз бос жүрісті азайту және жұмыс режимін тиімді ұйымдастыру маңызды."
+        text:"Құрылыс техникасының шығарындыларын азайту үшін техниканың техникалық жағдайын бақылау, қажетсіз бос жүрісті азайту және жұмыс режимін тиімді ұйымдастыру маңызды."
     },
-
     dust:{
         name:"Шаң-тозаң",
         percent:"86%",
         area:"Атмосфера",
-        priority:"CRITICAL",
+        priority:"КРИТИКАЛЫҚ",
         level:"ӨТЕ ЖОҒАРЫ",
         width:"86%",
         color:"high",
-
-        text:
-        "Шаң-тозаң құрылыс алаңындағы негізгі экологиялық аспектілердің бірі. Оны азайту үшін су бүрку, шаң деңгейін бақылау және құрылыс техникасының қозғалысын ұйымдастыру шаралары ұсынылады."
+        text:"Шаң-тозаң құрылыс алаңындағы негізгі экологиялық аспектілердің бірі. Оны азайту үшін су бүрку, шаң деңгейін бақылау және құрылыс техникасының қозғалысын ұйымдастыру шаралары ұсынылады."
     },
-
     waste:{
         name:"Құрылыс қалдықтары",
         percent:"74%",
         area:"Жер / ресурс",
-        priority:"HIGH",
+        priority:"ЖОҒАРЫ",
         level:"ЖОҒАРЫ",
         width:"74%",
         color:"high",
-
-        text:
-        "Құрылыс қалдықтарын басқарудың негізгі бағыты — қалдықтарды араластырмай жинау, сұрыптау, қайта пайдалану, қайта өңдеу және қайта қолдануға келмейтін қалдықты қауіпсіз кәдеге жарату."
+        text:"Құрылыс қалдықтарын басқарудың негізгі бағыты — қалдықтарды араластырмай жинау, сұрыптау, қайта пайдалану, қайта өңдеу және қайта қолдануға келмейтін қалдықты қауіпсіз кәдеге жарату."
     },
-
     noise:{
         name:"Шу және діріл",
         percent:"58%",
         area:"Акустикалық орта",
-        priority:"MEDIUM",
+        priority:"ОРТАША",
         level:"ОРТАША",
         width:"58%",
         color:"medium",
-
-        text:
-        "Шу мен діріл ауыр құрылыс техникасының және құрылыс операцияларының нәтижесінде пайда болады. Оларды азайту үшін техника жұмысын ұйымдастыру және бақылау шараларын қолдану қажет."
+        text:"Шу мен діріл ауыр құрылыс техникасының және құрылыс операцияларының нәтижесінде пайда болады. Оларды азайту үшін техника жұмысын ұйымдастыру және бақылау шараларын қолдану қажет."
     }
-
 };
 
+function selectImpact(type,button){
+    const data=impactData[type];
+    if(!data) return;
 
-function selectImpact(
-    type,
-    button
-){
+    document.querySelectorAll(".impact-button").forEach(b=>b.classList.remove("selected"));
+    if(button) button.classList.add("selected");
 
-    const data =
-        impactData[type];
+    const set=(id,val)=>{
+        const el=document.getElementById(id);
+        if(el) el.textContent=val;
+    };
 
+    set("factorName",data.name);
+    set("impactPercent",data.percent);
+    set("affectedArea",data.area);
+    set("priority",data.priority);
+    set("impactLevel",data.level);
+    set("analysisSummary",data.text);
 
-    document
-        .querySelectorAll(".impact-button")
-        .forEach(
-            b=>b.classList.remove(
-                "selected"
-            )
-        );
+    const level=document.getElementById("impactLevel");
+    if(level) level.className="impact-level "+data.color;
 
+    const bar=document.getElementById("impactBar");
+    if(bar) bar.style.width=data.width;
 
-    button.classList.add(
-        "selected"
-    );
+    const state=document.getElementById("impactIndexState");
+    if(state) state.textContent=data.level;
 
+    const heroState=document.getElementById("heroImpactState");
+    if(heroState) heroState.textContent=data.level;
 
-    document.getElementById(
-        "factorName"
-    ).textContent =
-        data.name;
+    const heroBar=document.getElementById("heroImpactBar");
+    if(heroBar) heroBar.style.width=data.width;
 
+    if(type==="dust"){
+        set("decisionRisk","Шаң-тозаң");
+        set("decisionAction","Су бүрку");
+        set("decisionControl","Қайта өлшеу");
+    }else if(type==="soil"){
+        set("decisionRisk","Топырақ");
+        set("decisionAction","Қорғау аймағы");
+        set("decisionControl","Қалпына келтіру");
+    }else if(type==="emission"){
+        set("decisionRisk","Шығарындылар");
+        set("decisionAction","Бос жүрісті азайту");
+        set("decisionControl","Техниканы тексеру");
+    }else if(type==="waste"){
+        set("decisionRisk","Қалдық");
+        set("decisionAction","Сұрыптау");
+        set("decisionControl","Қайта пайдалану");
+    }else{
+        set("decisionRisk","Шу / діріл");
+        set("decisionAction","Жұмыс режимі");
+        set("decisionControl","Қайта өлшеу");
+    }
 
-    document.getElementById(
-        "impactPercent"
-    ).textContent =
-        data.percent;
-
-
-    document.getElementById(
-        "affectedArea"
-    ).textContent =
-        data.area;
-
-
-    document.getElementById(
-        "priority"
-    ).textContent =
-        data.priority;
-
-
-    const level =
-        document.getElementById(
-            "impactLevel"
-        );
-
-
-    level.textContent =
-        data.level;
-
-
-    level.className =
-        "impact-level "+
-        data.color;
-
-
-    document.getElementById(
-        "impactBar"
-    ).style.width =
-        data.width;
-
-
-    document.getElementById(
-        "analysisSummary"
-    ).textContent =
-        data.text;
-
+    highlight3D(type);
 }
 
-
 /* =========================================================
-   DUST CONTROL
+   DUST CONTROL — NORMAL → HIGH → WATER SPRAY → RESTORED
 ========================================================= */
 
 function setDust(value){
+    const number=document.getElementById("dustNumber");
+    const fill=document.getElementById("dustFill");
+    const state=document.getElementById("dustState");
+    const main=document.getElementById("responseMain");
+    const text=document.getElementById("responseText");
+    const sensor=document.getElementById("dustSensorState");
+    const badge=document.getElementById("responseBadge");
 
-    const number =
-        document.getElementById(
-            "dustNumber"
-        );
+    if(!number) return;
 
-    const fill =
-        document.getElementById(
-            "dustFill"
-        );
+    number.textContent=value;
+    fill.style.width=Math.min(100,value/1.5)+"%";
+    state.className="dust-state";
 
-    const state =
-        document.getElementById(
-            "dustState"
-        );
-
-    const main =
-        document.getElementById(
-            "responseMain"
-        );
-
-    const text =
-        document.getElementById(
-            "responseText"
-        );
-
-
-    number.textContent =
-        value;
-
-
-    fill.style.width =
-        Math.min(
-            100,
-            value/1.5
-        )+"%";
-
-
-    state.className =
-        "dust-state";
-
+    document.querySelectorAll(".dust-btn").forEach(b=>b.classList.remove("active"));
 
     if(value<=50){
-
-        fill.style.background =
-            "#72f39a";
-
-        state.innerHTML =
-            '<span class="dot"></span> ҚАЛЫПТЫ ДЕҢГЕЙ';
-
-
-        main.textContent =
-            "Мониторинг жалғасуда.";
-
-
-        text.textContent =
-            "Шаң деңгейі қалыпты. Құрылыс алаңы стандартты бақылау режимінде.";
-
-
-        document.getElementById(
-            "step1"
-        ).textContent =
-            "Шаң деңгейін өлшеу";
-
-
-        document.getElementById(
-            "step2"
-        ).textContent =
-            "Көрсеткішті талдау";
-
-
-        document.getElementById(
-            "step3"
-        ).textContent =
-            "Қажетті шараны таңдау";
-
-
-        document.getElementById(
-            "step4"
-        ).textContent =
-            "Қайта бақылау";
-
+        fill.style.background="#72f39a";
+        state.innerHTML='<span class="dot"></span> ҚАЛЫПТЫ ДЕҢГЕЙ';
+        main.textContent="Мониторинг жалғасуда.";
+        text.textContent="Шаң деңгейі қалыпты. Құрылыс алаңы стандартты бақылау режимінде.";
+        sensor.textContent="ҚАЛЫПТЫ";
+        badge.textContent="БАҚЫЛАУ ЖҮЙЕСІ БЕЛСЕНДІ";
+        badge.className="response-badge";
+        setDustSteps("Шаң деңгейін өлшеу","Көрсеткішті талдау","Қажетті шараны таңдау","Қайта бақылау");
+    }else if(value<=100){
+        fill.style.background="#ffd86a";
+        state.classList.add("warning");
+        state.innerHTML='<span class="dot"></span> ЖОҒАРЫ ДЕҢГЕЙ';
+        main.textContent="Шаңды азайту іске қосылды.";
+        text.textContent="Шаң деңгейі жоғарылады. Су бүрку және қозғалысты бақылау шаралары күшейтіледі.";
+        sensor.textContent="НАЗАРДА";
+        badge.textContent="ШАҢДЫ БАҚЫЛАУ КҮШЕЙТІЛДІ";
+        setDustSteps("Шаң деңгейінің өсуі анықталды","Су бүрку режимін күшейту","Құрылыс қозғалысын бақылау","Қайта өлшеу");
+    }else{
+        fill.style.background="#ff5e69";
+        state.classList.add("danger");
+        state.innerHTML='<span class="dot"></span> КРИТИКАЛЫҚ ДЕҢГЕЙ';
+        main.textContent="Шұғыл шаң бақылауы.";
+        text.textContent="Шаң деңгейі өте жоғары. Су бүрку және шаң шығаратын операцияларды бақылау күшейтіледі.";
+        sensor.textContent="КРИТИКАЛЫҚ";
+        badge.textContent="ШҰҒЫЛ ШАРА ҚАЖЕТ";
+        setDustSteps("Критикалық деңгей анықталды","Су бүрку қарқындылығын арттыру","Шаң шығаратын операцияны шектеу","Қайта бақылау және бағалау");
     }
 
+    const heroDust=document.getElementById("heroDustValue");
+    if(heroDust) heroDust.textContent=value;
 
-    else if(value<=100){
-
-        fill.style.background =
-            "#ffd86a";
-
-        state.classList.add(
-            "warning"
-        );
-
-        state.innerHTML =
-            '<span class="dot"></span> ЖОҒАРЫ ДЕҢГЕЙ';
-
-
-        main.textContent =
-            "Шаңды азайту іске қосылды.";
-
-
-        text.textContent =
-            "Шаң деңгейі жоғарылады. Алдын алу шаралары күшейтіледі.";
-
-
-        document.getElementById(
-            "step1"
-        ).textContent =
-            "Шаң деңгейінің өсуі анықталды";
-
-
-        document.getElementById(
-            "step2"
-        ).textContent =
-            "Су бүрку режимін күшейту";
-
-
-        document.getElementById(
-            "step3"
-        ).textContent =
-            "Құрылыс қозғалысын бақылау";
-
-
-        document.getElementById(
-            "step4"
-        ).textContent =
-            "Қайта өлшеу";
-
+    if(threeState.dust){
+        threeState.dust.material.opacity=Math.min(.75,.08+value/220);
+        threeState.dust.material.size=.04+Math.min(.08,value/1000);
     }
-
-
-    else{
-
-        fill.style.background =
-            "#ff5e69";
-
-        state.classList.add(
-            "danger"
-        );
-
-        state.innerHTML =
-            '<span class="dot"></span> КРИТИКАЛЫҚ ДЕҢГЕЙ';
-
-
-        main.textContent =
-            "Шұғыл шаң бақылауы.";
-
-
-        text.textContent =
-            "Шаң деңгейі өте жоғары. Су бүрку және шаң шығаратын операцияларды бақылау күшейтіледі.";
-
-
-        document.getElementById(
-            "step1"
-        ).textContent =
-            "Критикалық деңгей анықталды";
-
-
-        document.getElementById(
-            "step2"
-        ).textContent =
-            "Су бүрку қарқындылығын арттыру";
-
-
-        document.getElementById(
-            "step3"
-        ).textContent =
-            "Шаң шығаратын операцияны шектеу";
-
-
-        document.getElementById(
-            "step4"
-        ).textContent =
-            "Қайта бақылау және бағалау";
-
-    }
-
 }
 
+function setDustSteps(a,b,c,d){
+    document.getElementById("step1").textContent=a;
+    document.getElementById("step2").textContent=b;
+    document.getElementById("step3").textContent=c;
+    document.getElementById("step4").textContent=d;
+}
+
+function waterSpray(){
+    const spray=threeState.spray;
+    if(spray){
+        spray.material.opacity=.72;
+        spray.material.size=.055;
+    }
+
+    const fill=document.getElementById("dustFill");
+    const number=document.getElementById("dustNumber");
+    const state=document.getElementById("dustState");
+    const main=document.getElementById("responseMain");
+    const text=document.getElementById("responseText");
+    const sensor=document.getElementById("dustSensorState");
+    const badge=document.getElementById("responseBadge");
+
+    number.textContent="32";
+    fill.style.width="21%";
+    fill.style.background="#72f39a";
+    state.className="dust-state";
+    state.innerHTML='<span class="dot"></span> БАҚЫЛАУ ҚАЛПЫНА КЕЛДІ';
+    main.textContent="CONTROL RESTORED";
+    text.textContent="Су бүрку іске қосылды. Шаң деңгейі төмендеп, бақылау режимі қайта тұрақтанды.";
+    sensor.textContent="ТҰРАҚТЫ";
+    badge.textContent="CONTROL RESTORED";
+    badge.className="response-badge";
+
+    setDustSteps("Шаңның жоғарылауы анықталды","Су бүрку іске қосылды","Шаң концентрациясы төмендеді","Қайта өлшеу расталды");
+
+    document.querySelectorAll(".dust-btn").forEach(b=>b.classList.remove("active"));
+    const sprayButton=document.querySelector(".dust-btn.spray");
+    if(sprayButton) sprayButton.classList.add("active");
+
+    const heroDust=document.getElementById("heroDustValue");
+    if(heroDust) heroDust.textContent="32";
+
+    const heroState=document.getElementById("heroImpactState");
+    if(heroState) heroState.textContent="БАҚЫЛАУДА";
+}
 
 /* =========================================================
-   WASTE CALCULATOR
+   WASTE MANAGEMENT
 ========================================================= */
 
-function calculateWaste(){
+const wasteMaterials={
+    asphalt:{
+        title:"Асфальт",
+        text:"Ескі асфальтты бөлек жинап, ұсақтап, қайта жол-құрылыс жұмыстарына материал ретінде пайдалануға болады.",
+        tags:["бөлек жинау","қайта пайдалану","қайта өңдеу"]
+    },
+    concrete:{
+        title:"Бетон",
+        text:"Бетон қалдықтарын бөлек жинау және ұсақтау арқылы қайта өңделген толтырғыш ретінде қолдану бағытын қарастыруға болады.",
+        tags:["сұрыптау","ұсақтау","қайта өңдеу"]
+    },
+    soil:{
+        title:"Топырақ",
+        text:"Жарамды топырақты бөлек сақтау және құрылыс аяқталғаннан кейін көгалдандыру немесе жерді қалпына келтіру жұмыстарына бағыттау.",
+        tags:["бөлек сақтау","қайта қолдану","рекультивация"]
+    },
+    metal:{
+        title:"Металл",
+        text:"Металл қалдықтарын араластырмай жинап, қайта өңдеуге жіберу арқылы материалдық ресурсты сақтауға болады.",
+        tags:["сұрыптау","жинау","қайта өңдеу"]
+    }
+};
 
-    const value =
-        Number(
-            document.getElementById(
-                "wasteInput"
-            ).value
-        ) || 0;
+function selectWasteMaterial(type,button){
+    const data=wasteMaterials[type];
+    if(!data) return;
 
+    document.querySelectorAll(".material-btn").forEach(b=>b.classList.remove("active"));
+    if(button) button.classList.add("active");
 
-    /*
-        Демонстрациялық есеп:
-        70% — қайта пайдалануға/қайта өңдеуге
-        бағытталған көлем.
-    */
-
-    const reusable =
-        value*.70;
-
-
-    const remaining =
-        value*.30;
-
-
-    document.getElementById(
-        "reuse"
-    ).textContent =
-        Math.round(
-            reusable
-        )+" т";
-
-
-    document.getElementById(
-        "remaining"
-    ).textContent =
-        Math.round(
-            remaining
-        )+" т";
-
+    document.getElementById("materialTitle").textContent=data.title;
+    document.getElementById("materialText").textContent=data.text;
+    document.getElementById("materialTags").innerHTML=data.tags.map(tag=>`<span>${tag}</span>`).join("");
 }
 
+function calculateWaste(){
+    const value=Number(document.getElementById("wasteInput").value)||0;
+    const reusable=value*.70;
+    const remaining=value*.30;
+
+    document.getElementById("reuse").textContent=Math.round(reusable)+" т";
+    document.getElementById("remaining").textContent=Math.round(remaining)+" т";
+}
 
 calculateWaste();
 
-
 /* =========================================================
-   REVEAL ANIMATION
+   REVEAL
 ========================================================= */
 
-const observer =
-    new IntersectionObserver(
-        entries=>{
+const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting) entry.target.classList.add("show");
+    });
+},{threshold:.12});
 
-            entries.forEach(
-                entry=>{
-
-                    if(
-                        entry.isIntersecting
-                    ){
-
-                        entry.target
-                            .classList
-                            .add("show");
-
-                    }
-
-                }
-            );
-
-        },
-        {
-            threshold:.12
-        }
-    );
-
-
-document
-    .querySelectorAll(".reveal")
-    .forEach(
-        element=>{
-            observer.observe(
-                element
-            );
-        }
-    );
-
+document.querySelectorAll(".reveal").forEach(element=>observer.observe(element));
 
 /* =========================================================
-   ESCAPE
+   STARTUP STATE
 ========================================================= */
 
-document.addEventListener(
-    "keydown",
-    event=>{
+window.addEventListener("load",()=>{
+    const first=document.querySelector('.problem-item[data-aspect="soil"]');
+    if(first) selectMapObject("soil");
 
-        if(event.key==="Escape"){
+    const impactButton=document.querySelector('.impact-button[data-impact="soil"]');
+    if(impactButton) selectImpact("soil",impactButton);
+});
 
-            document
-                .querySelectorAll(
-                    ".problem-item"
-                )
-                .forEach(
-                    item=>{
-                        item.classList.remove(
-                            "active"
-                        );
-                    }
-                );
-
-        }
-
+/* ESCAPE */
+document.addEventListener("keydown",event=>{
+    if(event.key==="Escape"){
+        document.querySelectorAll(".problem-item").forEach(item=>item.classList.remove("active"));
     }
-);
+});
+
 
 </script>
 
